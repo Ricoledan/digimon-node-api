@@ -1,29 +1,27 @@
-import * as dotenv from 'dotenv';
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import ApiRouter from './routes/api.route';
+import * as dotenv from 'dotenv'
+import express from 'express'
+import cors from 'cors'
+import helmet from 'helmet'
+import ProfileRouter from './routes/profile.route'
 
-dotenv.config();
+dotenv.config()
 
 if (!process.env.PORT) {
-  process.exit(1);
+  process.exit(1)
 }
 
-const app = express();
-const PORT: number = parseInt(process.env.PORT as string, 10);
+const app = express()
+const PORT: number = parseInt(process.env.PORT as string, 10)
 
-app.use(helmet());
-app.use(cors());
-app.use(express.json());
+app.use(helmet())
+app.use(cors())
+app.use(express.json())
 
-app.use('/api', ApiRouter);
+app.use('/api', ProfileRouter)
 app.get('/', (req: Request, res: any) => {
-  res.send(
-    'nodejs-starter-template - starter template for various nodejs projects'
-  );
-});
+  res.send('Digimon API')
+})
 
 app.listen(PORT, () => {
-  console.log(`✊🏿[server]: running on http://localhost:${PORT}`);
-});
+  console.log(`[デジタルモンスター]: running on http://localhost:${PORT}`)
+})
