@@ -36,48 +36,6 @@ Profile - brief description
 
 ## Commands
 
-#### Run Dev Environment
-
-```CLI
-deno run -A drakefile.ts run
-```
-
-#### Format Project
-
-```CLI
-deno run -A drakefile.ts fmt
-```
-
-#### Test Project
-
-```CLI
-deno run -A drakefile.ts test
-```
-
-#### Lock Dependencies
-
-```CLI
-deno run -A drakefile.ts lock
-```
-
-#### Build Docker Image
-
-```CLI
-deno run -A drakefile.ts dbuild
-```
-
-#### Run Docker Container
-
-```CLI
-deno run -A drakefile.ts drun
-```
-
-#### Push Docker Repository to Registry
-
-```CLI
-deno run -A drakefile.ts dpush
-```
-
 ## Resources
 
 ### **Thank You! ❤️**
