@@ -11,7 +11,7 @@
 | `GET`    | return all digimon profiles     | digimon       |
 | `GET`    | return specific profile by name | digimon/:name |
 | `POST`   | create a single profile         | digimon       |
-| `PUT`    | update a specific profile       | digimon/:name |
+| `PATCH`  | update a specific profile       | digimon/:name |
 | `DELETE` | delete a specific profile       | digimon/:name |
 
 ### References
