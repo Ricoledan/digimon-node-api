@@ -3,18 +3,36 @@ import client from '../config/db.config'
 class ProfileRepository {
   async readAll(req: any, res: any) {
     try {
-      const result = await client
+      const results = await client
         .db('digimon')
         .collection('profile')
-        .find({ 'timestamp.deleted_at': { $eq: null } })
-      console.log(result)
-      return res.send('success')
+        .find()
+        .toArray()
+
+      console.log(results)
+
+      return res.send(results)
     } catch (e) {
       console.error(e)
     }
+    client.close()
   }
   async readOne(req: any, res: any) {
-    return res.send('read one profiles')
+    const getName = req.params.name
+
+    try {
+      const result = await client
+        .db('digimon')
+        .collection('profile')
+        .findOne({ name: getName })
+
+      console.log(result)
+
+      return res.send(result)
+    } catch (e) {
+      console.error(e)
+    }
+    client.close()
   }
   async create(req: any, res: any) {
     return res.send('create profile')
