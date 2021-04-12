@@ -9,8 +9,6 @@ class ProfileRepository {
         .find()
         .toArray()
 
-      console.log(results)
-
       return res.send(results)
     } catch (e) {
       console.error(e)
@@ -25,8 +23,6 @@ class ProfileRepository {
         .db('digimon')
         .collection('profile')
         .findOne({ name: getName })
-
-      console.log(result)
 
       return res.send(result)
     } catch (e) {
