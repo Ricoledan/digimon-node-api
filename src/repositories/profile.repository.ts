@@ -1,6 +1,17 @@
+import client from '../config/db.config'
+
 class ProfileRepository {
   async readAll(req: any, res: any) {
-    return res.send('read all profiles')
+    try {
+      const result = await client
+        .db('digimon')
+        .collection('profile')
+        .find({ 'timestamp.deleted_at': { $eq: null } })
+      console.log(result)
+      return res.send('success')
+    } catch (e) {
+      console.error(e)
+    }
   }
   async readOne(req: any, res: any) {
     return res.send('read one profiles')
