@@ -20,8 +20,6 @@ class Database {
       .connect()
       .then(console.log('connected to mongodb'))
       .catch((e: string) => console.error(`Fatal error occurred: ${e}`))
-
-    this.client.close()
   }
 }
 
