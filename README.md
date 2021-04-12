@@ -1,6 +1,6 @@
 # **デジタルモンスター API**
 
-#### Digital Monster API
+## Digital Monster API
 
 👾 Deno powered API for Digimon Digital Monsters.
 
@@ -35,6 +35,10 @@ Artwork - profile image
 Profile - brief description
 
 ## Commands
+
+Run dev environment
+
+`npm run dev`
 
 ## Resources
 
