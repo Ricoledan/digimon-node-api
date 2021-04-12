@@ -9,7 +9,7 @@ router.post('/profile', ProfileController.createProfile)
 router.patch('/profile/:name', ProfileController.updateProfile)
 router.delete('/profile/:name', ProfileController.deleteProfile)
 
-//* TODO: work to support frontend application
+// TODO: work to support frontend application
 // problem: upload image to S3 bucket and store url in db
 // implementation: create endpoint that does that work
 // code: router.get('/upload/:image', ProfileController.uploadProfileImage)
