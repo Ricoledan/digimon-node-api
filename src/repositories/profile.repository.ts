@@ -1,7 +1,9 @@
 import client from '../config/db.config'
+import dayjs from 'dayjs'
 
 // add time date library
-const now = ''
+const now = dayjs().format() // fix formatting to desired results
+console.log(now)
 
 class ProfileRepository {
   async readAll(req: any, res: any) {
@@ -65,6 +67,16 @@ class ProfileRepository {
     return res.send('create profile')
   }
   async update(req: any, res: any) {
+    const getRequestBody = req.body
+    const updateQuery = {}
+    try {
+      const results = await client
+        .db('digimon')
+        .collection('profile')
+        .updateOne(updateQuery)
+    } catch (e) {
+      console.log(e)
+    }
     return res.send('update profile')
   }
 
