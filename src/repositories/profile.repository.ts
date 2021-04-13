@@ -2,7 +2,7 @@ import client from '../config/db.config'
 import dayjs from 'dayjs'
 
 // add time date library
-const now = dayjs().format() // fix formatting to desired results
+const now = dayjs().format()
 console.log(now)
 
 class ProfileRepository {
@@ -11,7 +11,7 @@ class ProfileRepository {
       const results = await client
         .db('digimon')
         .collection('profile')
-        .find()
+        .find({ 'timestamp.deleted_at': { $eq: null } })
         .toArray()
 
       return res.send(results)
@@ -64,24 +64,79 @@ class ProfileRepository {
     } catch (e: any) {
       console.error(e)
     }
-    return res.send('create profile')
   }
   async update(req: any, res: any) {
+    const getName = req.params.name
     const getRequestBody = req.body
-    const updateQuery = {}
+    console.log('field', getRequestBody.field)
+    console.log('group', getRequestBody.group)
+    const getProfile = await client
+      .db('digimon')
+      .collection('profile')
+      .findOne({ name: getName })
+    console.log(getProfile.field)
+    const getCreatedTimestamp = getProfile.timestamp.created_at
+    const getDeletedTimestamp = getProfile.timestamp.deleted_at
+
     try {
       const results = await client
         .db('digimon')
         .collection('profile')
-        .updateOne(updateQuery)
+        .updateOne(
+          { name: getRequestBody.name },
+          {
+            $set: {
+              level: getRequestBody.level ?? getProfile.level,
+              type: getRequestBody.type ?? getProfile.type,
+              attribute: getRequestBody.attribute ?? getProfile.attribute,
+              field: getRequestBody.field ?? getProfile.field,
+              group: getRequestBody.group ?? getProfile.group,
+              technique: getRequestBody.technique ?? getProfile.technique,
+              artwork: getRequestBody.artwork ?? getProfile.artwork,
+              profile: getRequestBody.profile ?? getProfile.profile,
+              timestamp: {
+                created_at: getCreatedTimestamp,
+                updated_at: now,
+                deleted_at: getDeletedTimestamp
+              }
+            }
+          }
+        )
+      return res.send(results)
     } catch (e) {
       console.log(e)
     }
-    return res.send('update profile')
   }
 
   async delete(req: any, res: any) {
-    return res.send('delete profile')
+    const getName = req.params.name
+    const getProfile = await client
+      .db('digimon')
+      .collection('profile')
+      .findOne({ name: getName })
+
+    const getCreatedTimestamp = getProfile.timestamp.created_at
+
+    try {
+      const results = await client
+        .db('digimon')
+        .collection('profile')
+        .updateOne(
+          { name: getName },
+          {
+            $set: {
+              timestamp: {
+                created_at: getCreatedTimestamp,
+                deleted_at: now,
+                updated_at: now
+              }
+            }
+          }
+        )
+      return res.send(results)
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
 
