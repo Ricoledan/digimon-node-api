@@ -68,13 +68,10 @@ class ProfileRepository {
   async update(req: any, res: any) {
     const getName = req.params.name
     const getRequestBody = req.body
-    console.log('field', getRequestBody.field)
-    console.log('group', getRequestBody.group)
     const getProfile = await client
       .db('digimon')
       .collection('profile')
       .findOne({ name: getName })
-    console.log(getProfile.field)
     const getCreatedTimestamp = getProfile.timestamp.created_at
     const getDeletedTimestamp = getProfile.timestamp.deleted_at
 
@@ -83,7 +80,7 @@ class ProfileRepository {
         .db('digimon')
         .collection('profile')
         .updateOne(
-          { name: getRequestBody.name },
+          { name: getName },
           {
             $set: {
               level: getRequestBody.level ?? getProfile.level,
@@ -102,6 +99,7 @@ class ProfileRepository {
             }
           }
         )
+
       return res.send(results)
     } catch (e) {
       console.log(e)
