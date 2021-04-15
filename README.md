@@ -6,13 +6,13 @@
 
 ## Routes
 
-| Methods  | Description                     | Routes        |
-| -------- | ------------------------------- | ------------- |
-| `GET`    | return all digimon profiles     | digimon       |
-| `GET`    | return specific profile by name | digimon/:name |
-| `POST`   | create a single profile         | digimon       |
-| `PATCH`  | update a specific profile       | digimon/:name |
-| `DELETE` | delete a specific profile       | digimon/:name |
+| Methods  | Description                 | Routes         |
+| -------- | --------------------------- | -------------- |
+| `GET`    | return all digimon profiles | profiles       |
+| `GET`    | return a profile by name    | profiles/:name |
+| `POST`   | create a profile            | profiles       |
+| `PATCH`  | update a profile by name    | profiles/:name |
+| `DELETE` | delete a profile by name    | profiles/:name |
 
 ### References
 
