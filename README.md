@@ -2,7 +2,7 @@
 
 ## Digital Monster API
 
-👾 Deno powered API for Digimon Digital Monsters.
+👾 node.js powered API for Digimon Digital Monsters.
 
 ## Routes
 
