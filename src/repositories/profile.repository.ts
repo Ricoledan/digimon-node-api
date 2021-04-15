@@ -1,12 +1,13 @@
 import client from '../config/db.config'
 import dayjs from 'dayjs'
+import type { Request, Response } from 'express'
 
 // add time date library
 const now = dayjs().format()
 console.log(now)
 
 class ProfileRepository {
-  async readAll(req: any, res: any) {
+  async readAll(req: Request, res: Response) {
     try {
       const results = await client
         .db('digimon')
@@ -20,7 +21,7 @@ class ProfileRepository {
     }
     client.close()
   }
-  async readOne(req: any, res: any) {
+  async readOne(req: Request, res: Response) {
     const getName = req.params.name
 
     try {
@@ -35,7 +36,7 @@ class ProfileRepository {
     }
     client.close()
   }
-  async create(req: any, res: any) {
+  async create(req: Request, res: Response) {
     const getRequestBody = req.body
     const createQuery = {
       __v: 0,
@@ -65,7 +66,7 @@ class ProfileRepository {
       console.error(e)
     }
   }
-  async update(req: any, res: any) {
+  async update(req: Request, res: Response) {
     const getName = req.params.name
     const getRequestBody = req.body
     const getProfile = await client
@@ -106,7 +107,7 @@ class ProfileRepository {
     }
   }
 
-  async delete(req: any, res: any) {
+  async delete(req: Request, res: Response) {
     const getName = req.params.name
     const getProfile = await client
       .db('digimon')
