@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv'
-import express from 'express'
+import express, { Request, Response } from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import ProfileRouter from './routes/profile.route'
@@ -18,7 +18,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/api', ProfileRouter)
-app.get('/', (req: Request, res: any) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Digimon API')
 })
 
