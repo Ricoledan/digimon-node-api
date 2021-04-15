@@ -11,7 +11,10 @@ class Database {
   }
 
   async connect() {
-    const connectionUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@yggdrasil.ug5tw.mongodb.net/digimon?retryWrites=true&w=majority`
+    const connectionUri =
+      process.env.NODE_ENV === 'prod'
+        ? `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@yggdrasil.ug5tw.mongodb.net/digimon?retryWrites=true&w=majority`
+        : `mongodb://${process.env.DOCKER_DB_USER}:${process.env.DOCKER_DB_PASSWORD}@127.0.0.1:27017/digimon`
     this.client = new mongodb.MongoClient(connectionUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true
