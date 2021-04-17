@@ -11,7 +11,7 @@ if (!process.env.PORT) {
 }
 
 const app = express()
-const PORT: number = parseInt(process.env.PORT as string, 10) || 3030
+const PORT: number = parseInt(process.env.PORT as string, 10)
 
 app.use(helmet())
 app.use(cors())
