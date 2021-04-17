@@ -3,6 +3,6 @@ WORKDIR /app
 COPY ["package.json", "package-lock.json*", "./"]
 RUN npm install -g ts-node-dev && npm install
 
-FROM base
+FROM base as dev
 COPY . .
 CMD [ "ts-node-dev", "--respawn", "--pretty", "--transpile-only", "src/server.ts" ]
