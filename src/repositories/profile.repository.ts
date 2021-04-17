@@ -2,7 +2,6 @@ import client from '../config/db.config'
 import dayjs from 'dayjs'
 import type { Request, Response } from 'express'
 
-// add time date library
 const now = dayjs().format()
 console.log(now)
 
@@ -11,7 +10,7 @@ class ProfileRepository {
     try {
       const results = await client
         .db('digimon')
-        .collection('profile')
+        .collection('profiles')
         .find({ 'timestamp.deleted_at': { $eq: null } })
         .toArray()
 
@@ -27,7 +26,7 @@ class ProfileRepository {
     try {
       const results = await client
         .db('digimon')
-        .collection('profile')
+        .collection('profiles')
         .findOne({ name: getName })
 
       return res.send(results)
@@ -58,7 +57,7 @@ class ProfileRepository {
     try {
       const results = await client
         .db('digimon')
-        .collection('profile')
+        .collection('profiles')
         .insertOne(createQuery)
 
       return res.send(results)
@@ -71,7 +70,7 @@ class ProfileRepository {
     const getRequestBody = req.body
     const getProfile = await client
       .db('digimon')
-      .collection('profile')
+      .collection('profiles')
       .findOne({ name: getName })
     const getCreatedTimestamp = getProfile.timestamp.created_at
     const getDeletedTimestamp = getProfile.timestamp.deleted_at
@@ -79,7 +78,7 @@ class ProfileRepository {
     try {
       const results = await client
         .db('digimon')
-        .collection('profile')
+        .collection('profiles')
         .updateOne(
           { name: getName },
           {
@@ -111,7 +110,7 @@ class ProfileRepository {
     const getName = req.params.name
     const getProfile = await client
       .db('digimon')
-      .collection('profile')
+      .collection('profiles')
       .findOne({ name: getName })
 
     const getCreatedTimestamp = getProfile.timestamp.created_at
@@ -119,7 +118,7 @@ class ProfileRepository {
     try {
       const results = await client
         .db('digimon')
-        .collection('profile')
+        .collection('profiles')
         .updateOne(
           { name: getName },
           {
