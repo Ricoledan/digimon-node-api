@@ -3,11 +3,11 @@ import ProfileController from '../controllers/profile.controller'
 
 const router: Router = Router()
 
-router.get('/profiles', ProfileController.getAllProfiles)
-router.get('/profiles/:name', ProfileController.getProfileByName)
-router.post('/profiles', ProfileController.createProfile)
-router.patch('/profiles/:name', ProfileController.updateProfile)
-router.delete('/profiles/:name', ProfileController.deleteProfile)
+router.get('/profiles', [], ProfileController.getProfiles)
+router.get('/profiles/:name', [], ProfileController.getProfiles)
+router.post('/profiles', [], ProfileController.createProfile)
+router.patch('/profiles/:name', [], ProfileController.updateProfile)
+router.delete('/profiles/:name', [], ProfileController.deleteProfile)
 
 // TODO: work to support frontend application
 // problem: upload image to S3 bucket and store url in db

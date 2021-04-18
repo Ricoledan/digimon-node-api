@@ -6,8 +6,17 @@ const now = dayjs().format()
 console.log(now)
 
 class ProfileRepository {
-  async readAll(req: Request, res: Response) {
+  async read(req: Request, res: Response) {
+    const getName = req.params.name
     try {
+      if (getName) {
+        const results = await client
+          .db('digimon')
+          .collection('profiles')
+          .findOne({ name: getName })
+
+        return res.send(results)
+      }
       const results = await client
         .db('digimon')
         .collection('profiles')
@@ -18,23 +27,8 @@ class ProfileRepository {
     } catch (e) {
       console.error(e)
     }
-    client.close()
   }
-  async readOne(req: Request, res: Response) {
-    const getName = req.params.name
 
-    try {
-      const results = await client
-        .db('digimon')
-        .collection('profiles')
-        .findOne({ name: getName })
-
-      return res.send(results)
-    } catch (e) {
-      console.error(e)
-    }
-    client.close()
-  }
   async create(req: Request, res: Response) {
     const getRequestBody = req.body
     const createQuery = {

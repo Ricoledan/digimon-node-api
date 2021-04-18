@@ -1,10 +1,7 @@
 import ProfileRepository from '../repositories/profile.repository'
 class ProfileService {
-  async getAll(req: any, res: any) {
-    return await ProfileRepository.readAll(req, res)
-  }
-  async getByName(req: any, res: any) {
-    return await ProfileRepository.readOne(req, res)
+  async getProfiles(req: any, res: any) {
+    return await ProfileRepository.read(req, res)
   }
   async create(req: any, res: any) {
     return await ProfileRepository.create(req, res)
