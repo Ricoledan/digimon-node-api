@@ -17,7 +17,9 @@ class Database {
         : `mongodb://${process.env.DOCKER_DB_USER}:${process.env.DOCKER_DB_PASSWORD}@127.0.0.1:27017`
     this.client = new mongodb.MongoClient(connectionUri, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      connectTimeoutMS: 30000,
+      keepAlive: true
     })
     await this.client
       .connect()
