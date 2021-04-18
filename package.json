@@ -29,7 +29,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^4.4.1",
-    "mongodb": "^3.6.6"
+    "mongodb": "^3.6.6",
+    "mongoose": "^5.12.4"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",
@@ -38,6 +39,7 @@
     "@types/helmet": "^4.0.0",
     "@types/jest": "^26.0.21",
     "@types/mongodb": "^3.6.12",
+    "@types/mongoose": "^5.10.5",
     "@types/node": "^14.14.35",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.4",
