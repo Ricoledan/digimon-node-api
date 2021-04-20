@@ -22,10 +22,13 @@ class ProfileRepository {
         .collection('profiles')
         .find({ 'timestamp.deleted_at': { $eq: null } })
         .toArray()
+      await client.close()
 
       return res.send(results)
     } catch (e) {
       console.error(e)
+    } finally {
+      await client.end()
     }
   }
 
@@ -53,10 +56,13 @@ class ProfileRepository {
         .db('digimon')
         .collection('profiles')
         .insertOne(createQuery)
+      await client.close()
 
       return res.send(results)
     } catch (e: any) {
       console.error(e)
+    } finally {
+      await client.end()
     }
   }
   async update(req: Request, res: Response) {
@@ -93,10 +99,13 @@ class ProfileRepository {
             }
           }
         )
+      await client.close()
 
       return res.send(results)
     } catch (e) {
       console.log(e)
+    } finally {
+      await client.end()
     }
   }
 
@@ -125,9 +134,13 @@ class ProfileRepository {
             }
           }
         )
+      await client.close()
+
       return res.send(results)
     } catch (e) {
       console.log(e)
+    } finally {
+      await client.end()
     }
   }
 }
