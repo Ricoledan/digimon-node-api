@@ -24,17 +24,20 @@
   },
   "homepage": "https://github.com/Ricoledan/nodejs-starter-template#readme",
   "dependencies": {
+    "chalk": "^4.1.0",
     "cors": "^2.8.5",
     "dayjs": "^1.10.4",
     "dotenv": "^8.2.0",
+    "elasticsearch": "^16.7.2",
     "express": "^4.17.1",
     "helmet": "^4.4.1",
     "mongodb": "^3.6.6",
-    "mongoose": "^5.12.4"
+    "mongoose": "^5.12.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",
     "@types/dotenv": "^8.2.0",
+    "@types/elasticsearch": "^5.0.37",
     "@types/express": "^4.17.11",
     "@types/helmet": "^4.0.0",
     "@types/jest": "^26.0.21",
