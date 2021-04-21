@@ -22,11 +22,12 @@ class ProfileRepository {
         .collection('profiles')
         .find({ 'timestamp.deleted_at': { $eq: null } })
         .toArray()
-      await client.close()
 
       return res.send(results)
     } catch (e) {
-      console.error(e)
+      res.status(500).send({
+        e: 'error occured creating user'
+      })
     } finally {
       await client.end()
     }
@@ -43,7 +44,7 @@ class ProfileRepository {
       field: getRequestBody.field ?? null,
       group: getRequestBody.group ?? null,
       technique: getRequestBody.technique,
-      artwork: getRequestBody.artwork,
+      artwork: getRequestBody.file.location,
       profile: getRequestBody.profile,
       timestamp: {
         created_at: now,
@@ -56,11 +57,12 @@ class ProfileRepository {
         .db('digimon')
         .collection('profiles')
         .insertOne(createQuery)
-      await client.close()
 
-      return res.send(results)
+      return res.status(201).send(results)
     } catch (e: any) {
-      console.error(e)
+      res.status(500).send({
+        e: 'error occured creating user'
+      })
     } finally {
       await client.end()
     }
@@ -99,11 +101,12 @@ class ProfileRepository {
             }
           }
         )
-      await client.close()
 
       return res.send(results)
     } catch (e) {
-      console.log(e)
+      res.status(500).send({
+        e: 'error occured creating user'
+      })
     } finally {
       await client.end()
     }
@@ -134,11 +137,12 @@ class ProfileRepository {
             }
           }
         )
-      await client.close()
 
       return res.send(results)
     } catch (e) {
-      console.log(e)
+      res.status(500).send({
+        e: 'error occured creating user'
+      })
     } finally {
       await client.end()
     }
