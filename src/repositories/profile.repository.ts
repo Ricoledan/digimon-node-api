@@ -1,42 +1,45 @@
-import client from '../config/db.config'
-import dayjs from 'dayjs'
+import profileModel from '../models/profile.model'
 import type { Request, Response } from 'express'
-
-const now = dayjs().format()
-console.log(now)
 
 class ProfileRepository {
   async read(req: Request, res: Response) {
     const getName = req.params.name
+
     try {
       if (getName) {
-        const results = await client
-          .db('digimon')
-          .collection('profiles')
-          .findOne({ name: getName })
-
-        return res.send(results)
+        await profileModel
+          .find({ name: getName })
+          .then((result) => {
+            return res.send(result)
+          })
+          .catch((e: any) => {
+            res.status(500).send({
+              error: 'error occured reading active profile',
+              e
+            })
+          })
       }
-      const results = await client
-        .db('digimon')
-        .collection('profiles')
-        .find({ 'timestamp.deleted_at': { $eq: null } })
-        .toArray()
 
-      return res.send(results)
+      await profileModel
+        .find()
+        .then((results) => {
+          return res.send(results)
+        })
+        .catch((e: any) => {
+          res.status(500).send({
+            error: 'error occured reading all active profiles',
+            e
+          })
+        })
     } catch (e) {
-      res.status(500).send({
-        e: 'error occured creating user'
-      })
-    } finally {
-      await client.end()
+      console.log(e)
     }
   }
 
   async create(req: Request, res: Response) {
     const getRequestBody = req.body
-    const createQuery = {
-      __v: 0,
+
+    const profile = new profileModel({
       name: getRequestBody.name,
       level: getRequestBody.level,
       type: getRequestBody.type,
@@ -44,107 +47,90 @@ class ProfileRepository {
       field: getRequestBody.field ?? null,
       group: getRequestBody.group ?? null,
       technique: getRequestBody.technique,
-      artwork: getRequestBody.file.location,
-      profile: getRequestBody.profile,
-      timestamp: {
-        created_at: now,
-        updated_at: null,
-        deleted_at: null
-      }
-    }
-    try {
-      const results = await client
-        .db('digimon')
-        .collection('profiles')
-        .insertOne(createQuery)
+      artwork: getRequestBody.artwork,
+      profile: getRequestBody.profile
+    })
 
-      return res.status(201).send(results)
-    } catch (e: any) {
-      res.status(500).send({
-        e: 'error occured creating user'
-      })
-    } finally {
-      await client.end()
+    try {
+      await profile
+        .save()
+        .then((result: any) => {
+          return res.status(201).send(result)
+        })
+        .catch((e: any) => {
+          res.status(500).send({
+            error: 'error occured creating profile'
+          })
+        })
+    } catch (e) {
+      console.log(e)
     }
   }
+
   async update(req: Request, res: Response) {
     const getName = req.params.name
     const getRequestBody = req.body
-    const getProfile = await client
-      .db('digimon')
-      .collection('profiles')
-      .findOne({ name: getName })
-    const getCreatedTimestamp = getProfile.timestamp.created_at
-    const getDeletedTimestamp = getProfile.timestamp.deleted_at
 
     try {
-      const results = await client
-        .db('digimon')
-        .collection('profiles')
+      const getDocumentFromDB = await profileModel
+        .find({ name: getName })
+        .then((result) => {
+          return res.send(result)
+        })
+        .catch((e: any) => {
+          res.status(500).send({
+            error: 'error occured reading active profile',
+            e
+          })
+        })
+
+      await profileModel
         .updateOne(
-          { name: getName },
           {
-            $set: {
-              level: getRequestBody.level ?? getProfile.level,
-              type: getRequestBody.type ?? getProfile.type,
-              attribute: getRequestBody.attribute ?? getProfile.attribute,
-              field: getRequestBody.field ?? getProfile.field,
-              group: getRequestBody.group ?? getProfile.group,
-              technique: getRequestBody.technique ?? getProfile.technique,
-              artwork: getRequestBody.artwork ?? getProfile.artwork,
-              profile: getRequestBody.profile ?? getProfile.profile,
-              timestamp: {
-                created_at: getCreatedTimestamp,
-                updated_at: now,
-                deleted_at: getDeletedTimestamp
-              }
-            }
+            name: getName
+          },
+          {
+            level: getRequestBody.level ?? getDocumentFromDB.level,
+            type: getRequestBody.type ?? getDocumentFromDB.type,
+            attribute: getRequestBody.attribute ?? getDocumentFromDB.attribute,
+            field: getRequestBody.field ?? getDocumentFromDB.field,
+            group: getRequestBody.group ?? getDocumentFromDB.group,
+            technique: getRequestBody.technique ?? getDocumentFromDB.technique,
+            artwork: getRequestBody.artwork ?? getDocumentFromDB.artwork,
+            profile: getRequestBody.profile ?? getDocumentFromDB.profile
           }
         )
-
-      return res.send(results)
+        .then((result: any) => {
+          return res.status(201).send(result)
+        })
+        .catch((e: any) => {
+          res.status(500).send({
+            error: 'error occured updating profile'
+          })
+        })
     } catch (e) {
-      res.status(500).send({
-        e: 'error occured creating user'
-      })
-    } finally {
-      await client.end()
+      console.log(e)
     }
   }
 
   async delete(req: Request, res: Response) {
     const getName = req.params.name
-    const getProfile = await client
-      .db('digimon')
-      .collection('profiles')
-      .findOne({ name: getName })
-
-    const getCreatedTimestamp = getProfile.timestamp.created_at
 
     try {
-      const results = await client
-        .db('digimon')
-        .collection('profiles')
-        .updateOne(
-          { name: getName },
-          {
-            $set: {
-              timestamp: {
-                created_at: getCreatedTimestamp,
-                deleted_at: now,
-                updated_at: now
-              }
-            }
-          }
-        )
-
-      return res.send(results)
+      await profileModel
+        .deleteOne({
+          name: getName
+        })
+        .then((result: any) => {
+          return res.status(201).send(result)
+        })
+        .catch((e: any) => {
+          res.status(500).send({
+            error: 'error occured deleting profile'
+          })
+        })
     } catch (e) {
-      res.status(500).send({
-        e: 'error occured creating user'
-      })
-    } finally {
-      await client.end()
+      console.log(e)
     }
   }
 }
