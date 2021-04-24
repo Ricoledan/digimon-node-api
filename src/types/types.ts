@@ -11,7 +11,7 @@ export interface Profile {
 }
 
 export interface ProfileSchema extends Profile {
-  _id?: { $oid: string }
+  _id: { $oid: string }
   __v: number
   timestamp: {
     created_at: string
