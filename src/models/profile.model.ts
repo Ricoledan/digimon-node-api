@@ -1,23 +1,25 @@
 import mongoose from 'mongoose'
 
-const ProfileSchema = new mongoose.Schema({
-  __v: { type: Number, required: true },
+const techniqueSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  level: { type: String, required: true },
-  type: { type: String, required: true },
-  attribute: { type: String, required: true },
-  field: { type: String },
-  group: { type: String },
-  technique: { type: String, required: true },
-  artwork: { type: String, required: true },
-  profile: { type: String, required: true },
-  timestamp: {
-    created_at: { type: String, required: true },
-    updated_at: { type: String },
-    deleted_at: { type: String }
-  }
+  description: { type: String, required: true }
 })
 
-const model = mongoose.model('ProfileModel', ProfileSchema)
+const profileSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    level: { type: String, required: true },
+    type: { type: String, required: true },
+    attribute: { type: String, required: true },
+    field: { type: Array },
+    group: { type: Array },
+    technique: [techniqueSchema],
+    artwork: { type: String, required: true },
+    profile: { type: String, required: true }
+  },
+  { timestamps: true }
+)
 
-module.exports = model
+const profileModel = mongoose.model('profile', profileSchema)
+
+export default profileModel
