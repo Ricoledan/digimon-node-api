@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-starter-template",
-  "version": "1.0.0",
-  "description": "starter template for various nodejs projects",
+  "name": "digimon-api",
+  "version": "0.0.0",
+  "description": "👾 node.js powered api for digimon digital monsters.",
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --pretty --transpile-only src/server.ts",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ricoledan/nodejs-starter-template.git"
+    "url": "git+https://github.com/Ricoledan/digimon-api.git"
   },
   "keywords": [
     "boilerplate",
@@ -20,9 +20,9 @@
   "author": "Ricardo Ledan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Ricoledan/nodejs-starter-template/issues"
+    "url": "https://github.com/Ricoledan/digimon-api/issues"
   },
-  "homepage": "https://github.com/Ricoledan/nodejs-starter-template#readme",
+  "homepage": "https://github.com/Ricoledan/digimon-api#readme",
   "dependencies": {
     "@types/morgan": "^1.9.2",
     "aws-sdk": "^2.890.0",
