@@ -10,7 +10,7 @@ class ProfileRepository {
         await profileModel
           .find({ name: getName })
           .then((result) => {
-            return res.send(result)
+            return res.status(200).send(result)
           })
           .catch((e: any) => {
             res.status(500).send({
@@ -75,7 +75,7 @@ class ProfileRepository {
       const getDocumentFromDB = await profileModel
         .find({ name: getName })
         .then((result) => {
-          return res.send(result)
+          return res.status(201).send(result)
         })
         .catch((e: any) => {
           res.status(500).send({
