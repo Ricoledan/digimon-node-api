@@ -84,6 +84,7 @@ class ProfileRepository {
           })
         })
 
+      // TODO: express types for getRequestBody
       await profileModel
         .updateOne(
           {
