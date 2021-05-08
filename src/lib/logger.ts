@@ -28,7 +28,8 @@ const format = winston.format.combine(
   winston.format.timestamp({ format: 'MM-DD-YYYY HH:mm:ss:ms' }),
   winston.format.colorize({ all: true }),
   winston.format.printf(
-    (info) => `${info.timestamp} ${info.level}: ${info.message}`
+    (info) =>
+      `[${process.env.NODE_ENV}] ${info.timestamp} ${info.level}: ${info.message}`
   )
 )
 
