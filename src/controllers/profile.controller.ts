@@ -6,7 +6,7 @@ class ProfileController {
     try {
       const results = await ProfileService.getProfiles(req)
 
-      return res.status(200).send(results)
+      return res.send(results)
     } catch (e: any) {
       logger.error(e)
       res.status(500).send({
@@ -32,7 +32,7 @@ class ProfileController {
     try {
       const results = await ProfileService.updateProfiles(req)
 
-      return res.send(201).send(results)
+      return res.status(201).send(results)
     } catch (e: any) {
       logger.error(e)
       res.status(500).send({
@@ -45,7 +45,7 @@ class ProfileController {
     try {
       const results = await ProfileService.deleteProfiles(req)
 
-      return res.send(201).send(results)
+      return res.status(201).send(results)
     } catch (e: any) {
       logger.error(e)
       res.status(500).send({
