@@ -25,12 +25,12 @@
   },
   "homepage": "https://github.com/Ricoledan/digimon-api#readme",
   "dependencies": {
+    "@elastic/elasticsearch": "^7.12.0",
     "@types/morgan": "^1.9.2",
     "aws-sdk": "^2.890.0",
     "chalk": "^4.1.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "elasticsearch": "^16.7.2",
     "express": "^4.17.1",
     "helmet": "^4.4.1",
     "mongodb": "^3.6.6",

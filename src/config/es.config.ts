@@ -1,25 +1,8 @@
 import dotenv from 'dotenv'
-import elasticSearch from 'elasticsearch'
-// TODO: update to new ES package
-
+import { Client } from '@elastic/elasticsearch'
+// import logger from '../lib/logger'
 dotenv.config()
 
-class ElasticSearch {
-  client: any
+const client = new Client({ node: 'http://localhost:9200' })
 
-  constructor() {
-    this.connect()
-  }
-
-  async connect() {
-    this.client = new elasticSearch.Client({
-      host: 'localhost:9200'
-    })
-    await this.client
-      .connect()
-      .then(console.log('connected to elasticsearch'))
-      .catch((e: string) => console.error(`Fatal error occurred: ${e}`))
-  }
-}
-
-export default new ElasticSearch().client
+export default client
