@@ -1,16 +1,28 @@
 import ProfileRepository from '../repositories/profile.repository'
+import type { Request } from 'express'
 class ProfileService {
-  async getProfiles(req: any, res: any) {
-    return await ProfileRepository.read(req, res)
+  async getProfiles(req: Request) {
+    const getProfileInfo = await ProfileRepository.read(req)
+
+    return getProfileInfo
   }
-  async create(req: any, res: any) {
-    return await ProfileRepository.create(req, res)
+
+  async createProfiles(req: Request) {
+    const createOneProfile = await ProfileRepository.create(req)
+
+    return createOneProfile
   }
-  async update(req: any, res: any) {
-    return await ProfileRepository.update(req, res)
+
+  async updateProfiles(req: Request) {
+    const updateOneProfile = await ProfileRepository.update(req)
+
+    return updateOneProfile
   }
-  async delete(req: any, res: any) {
-    return await ProfileRepository.delete(req, res)
+
+  async deleteProfiles(req: Request) {
+    const deleteOneProfile = await ProfileRepository.delete(req)
+
+    return deleteOneProfile
   }
 }
 

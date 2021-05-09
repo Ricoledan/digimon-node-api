@@ -1,42 +1,25 @@
 import profileModel from '../models/profile.model'
 import logger from '../lib/logger'
-import type { Request, Response } from 'express'
+import type { Request } from 'express'
 
 class ProfileRepository {
-  async read(req: Request, res: Response) {
+  async read(req: Request) {
     const getName = req.params.name
 
     try {
       if (getName) {
-        await profileModel
-          .find({ name: getName })
-          .then((result) => {
-            return res.status(200).send(result)
-          })
-          .catch((e: any) => {
-            res.status(500).send({
-              error: 'error occured reading active profile',
-              e
-            })
-          })
+        const profileByName = await profileModel.find({ name: getName })
+        return profileByName
       }
 
-      await profileModel
-        .find()
-        .then((results) => {
-          return res.send(results)
-        })
-        .catch((e: any) => {
-          res.status(500).send({
-            error: 'error occured reading all active profiles'
-          })
-        })
+      const allProfiles = await profileModel.find()
+      return allProfiles
     } catch (e) {
       logger.error(e)
     }
   }
 
-  async create(req: Request, res: Response) {
+  async create(req: Request) {
     const getRequestBody = req.body
 
     const profile = new profileModel({
@@ -52,84 +35,54 @@ class ProfileRepository {
     })
 
     try {
-      await profile
-        .save()
-        .then((result: any) => {
-          return res.status(201).send(result)
-        })
-        .catch((e: any) => {
-          res.status(500).send({
-            error: 'error occured creating profile'
-          })
-        })
+      const createProfile = await profile.save()
+      return createProfile
     } catch (e) {
       logger.error(e)
     }
   }
 
-  async update(req: Request, res: Response) {
+  async update(req: Request) {
     const getName = req.params.name
     const getRequestBody = req.body
 
     try {
-      const getDocumentFromDB = await profileModel
+      const getDocumentFromDB: any = await profileModel
         .find({ name: getName })
         .then((result) => {
-          return res.status(201).send(result)
-        })
-        .catch((e: any) => {
-          res.status(500).send({
-            error: 'error occured reading active profile',
-            e
-          })
+          return result
         })
 
-      // TODO: express types for getRequestBody
-      await profileModel
-        .updateOne(
-          {
-            name: getName
-          },
-          {
-            level: getRequestBody.level ?? getDocumentFromDB.level,
-            type: getRequestBody.type ?? getDocumentFromDB.type,
-            attribute: getRequestBody.attribute ?? getDocumentFromDB.attribute,
-            field: getRequestBody.field ?? getDocumentFromDB.field,
-            group: getRequestBody.group ?? getDocumentFromDB.group,
-            technique: getRequestBody.technique ?? getDocumentFromDB.technique,
-            artwork: getRequestBody.artwork ?? getDocumentFromDB.artwork,
-            profile: getRequestBody.profile ?? getDocumentFromDB.profile
-          }
-        )
-        .then((result: any) => {
-          return res.status(201).send(result)
-        })
-        .catch((e: any) => {
-          res.status(500).send({
-            error: 'error occured updating profile'
-          })
-        })
+      const updateProfile = await profileModel.updateOne(
+        {
+          name: getName
+        },
+        {
+          level: getRequestBody.level ?? getDocumentFromDB.level,
+          type: getRequestBody.type ?? getDocumentFromDB.type,
+          attribute: getRequestBody.attribute ?? getDocumentFromDB.attribute,
+          field: getRequestBody.field ?? getDocumentFromDB.field,
+          group: getRequestBody.group ?? getDocumentFromDB.group,
+          technique: getRequestBody.technique ?? getDocumentFromDB.technique,
+          artwork: getRequestBody.artwork ?? getDocumentFromDB.artwork,
+          profile: getRequestBody.profile ?? getDocumentFromDB.profile
+        }
+      )
+      return updateProfile
     } catch (e) {
       logger.error(e)
     }
   }
 
-  async delete(req: Request, res: Response) {
+  async delete(req: Request) {
     const getName = req.params.name
 
     try {
-      await profileModel
-        .deleteOne({
-          name: getName
-        })
-        .then((result: any) => {
-          return res.status(201).send(result)
-        })
-        .catch((e: any) => {
-          res.status(500).send({
-            error: 'error occured deleting profile'
-          })
-        })
+      const deleteProfile = await profileModel.deleteOne({
+        name: getName
+      })
+
+      return deleteProfile
     } catch (e) {
       logger.error(e)
     }
