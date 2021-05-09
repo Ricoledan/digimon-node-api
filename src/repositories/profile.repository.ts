@@ -9,10 +9,11 @@ class ProfileRepository {
     try {
       if (getName) {
         const profileByName = await profileModel.find({ name: getName })
+
         return profileByName
       }
-
       const allProfiles = await profileModel.find()
+
       return allProfiles
     } catch (e) {
       logger.error(e)
@@ -36,6 +37,7 @@ class ProfileRepository {
 
     try {
       const createProfile = await profile.save()
+
       return createProfile
     } catch (e) {
       logger.error(e)
@@ -47,12 +49,7 @@ class ProfileRepository {
     const getRequestBody = req.body
 
     try {
-      const getDocumentFromDB: any = await profileModel
-        .find({ name: getName })
-        .then((result) => {
-          return result
-        })
-
+      const getDocumentFromDB: any = await profileModel.find({ name: getName })
       const updateProfile = await profileModel.updateOne(
         {
           name: getName
@@ -68,6 +65,7 @@ class ProfileRepository {
           profile: getRequestBody.profile ?? getDocumentFromDB.profile
         }
       )
+
       return updateProfile
     } catch (e) {
       logger.error(e)
