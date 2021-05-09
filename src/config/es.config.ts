@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import elasticSearch from 'elasticsearch'
+// TODO: update to new ES package
 
 dotenv.config()
 
