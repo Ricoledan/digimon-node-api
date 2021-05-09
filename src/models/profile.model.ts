@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import type { ProfileSchema } from '../types/types'
 
 const techniqueSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -20,6 +21,7 @@ const profileSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-const profileModel = mongoose.model('profile', profileSchema)
-
-export default profileModel
+export default mongoose.model<ProfileSchema & mongoose.Document>(
+  'profile',
+  profileSchema
+)
