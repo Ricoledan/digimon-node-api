@@ -1,0 +1,12 @@
+.git
+.github
+.env.defaults
+.gitignore
+.notes
+*.md
+!README*.md
+docker-compose.dev.yml
+
+dist
+logs
+node_modules
