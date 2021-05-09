@@ -10,12 +10,12 @@ class ProfileController {
     } catch (e: any) {
       logger.error(e)
       res.status(500).send({
-        error: 'error occurred reading active profile'
+        error: 'error occurred reading active profiles'
       })
     }
   }
 
-  async createProfile(req: Request, res: Response) {
+  async createProfiles(req: Request, res: Response) {
     try {
       const results = await ProfileService.createProfiles(req)
 
@@ -28,7 +28,7 @@ class ProfileController {
     }
   }
 
-  async updateProfile(req: Request, res: Response) {
+  async updateProfiles(req: Request, res: Response) {
     try {
       const results = await ProfileService.updateProfiles(req)
 
@@ -41,7 +41,7 @@ class ProfileController {
     }
   }
 
-  async deleteProfile(req: Request, res: Response) {
+  async deleteProfiles(req: Request, res: Response) {
     try {
       const results = await ProfileService.deleteProfiles(req)
 
