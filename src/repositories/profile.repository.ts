@@ -1,4 +1,5 @@
 import profileModel from '../models/profile.model'
+import logger from '../lib/logger'
 import type { Request, Response } from 'express'
 
 class ProfileRepository {
@@ -27,12 +28,11 @@ class ProfileRepository {
         })
         .catch((e: any) => {
           res.status(500).send({
-            error: 'error occured reading all active profiles',
-            e
+            error: 'error occured reading all active profiles'
           })
         })
     } catch (e) {
-      console.log(e)
+      logger.error(e)
     }
   }
 
@@ -63,7 +63,7 @@ class ProfileRepository {
           })
         })
     } catch (e) {
-      console.log(e)
+      logger.error(e)
     }
   }
 
@@ -110,7 +110,7 @@ class ProfileRepository {
           })
         })
     } catch (e) {
-      console.log(e)
+      logger.error(e)
     }
   }
 
@@ -131,7 +131,7 @@ class ProfileRepository {
           })
         })
     } catch (e) {
-      console.log(e)
+      logger.error(e)
     }
   }
 }
