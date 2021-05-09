@@ -1,6 +1,7 @@
 import profileModel from '../models/profile.model'
 import logger from '../lib/logger'
 import type { Request } from 'express'
+// import type { Profile } from '../types/types'
 
 class ProfileRepository {
   async read(req: Request) {
@@ -49,21 +50,26 @@ class ProfileRepository {
     const getRequestBody = req.body
 
     try {
-      const getDocumentFromDB: any = await profileModel.find({ name: getName })
+      const getDocumentFromDB: any = await profileModel.find({
+        name: getName
+      })
+
+      const updatedProfileObj: any = {
+        level: getRequestBody.level ?? getDocumentFromDB[0].level,
+        type: getRequestBody.type ?? getDocumentFromDB[0].type,
+        attribute: getRequestBody.attribute ?? getDocumentFromDB[0].attribute,
+        field: getRequestBody.field ?? getDocumentFromDB[0].field,
+        group: getRequestBody.group ?? getDocumentFromDB[0].group,
+        technique: getRequestBody.technique ?? getDocumentFromDB[0].technique,
+        artwork: getRequestBody.artwork ?? getDocumentFromDB[0].artwork,
+        profile: getRequestBody.profile ?? getDocumentFromDB[0].profile
+      }
+
       const updateProfile = await profileModel.updateOne(
         {
           name: getName
         },
-        {
-          level: getRequestBody.level ?? getDocumentFromDB.level,
-          type: getRequestBody.type ?? getDocumentFromDB.type,
-          attribute: getRequestBody.attribute ?? getDocumentFromDB.attribute,
-          field: getRequestBody.field ?? getDocumentFromDB.field,
-          group: getRequestBody.group ?? getDocumentFromDB.group,
-          technique: getRequestBody.technique ?? getDocumentFromDB.technique,
-          artwork: getRequestBody.artwork ?? getDocumentFromDB.artwork,
-          profile: getRequestBody.profile ?? getDocumentFromDB.profile
-        }
+        updatedProfileObj
       )
 
       return updateProfile
