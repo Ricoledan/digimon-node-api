@@ -4,7 +4,7 @@
   "description": "👾 node.js powered api for digimon digital monsters.",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --pretty --transpile-only src/server.ts",
+    "dev": "docker-compose up",
     "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch"
