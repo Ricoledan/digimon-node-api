@@ -4,7 +4,7 @@ export interface Profile {
   type: Type
   attribute: Attribute
   field: Field[] | null
-  group: Group | null
+  group: Group[] | null
   technique: [{ name: string; description: string | null }]
   artwork: string
   profile: string
