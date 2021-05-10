@@ -8,6 +8,7 @@ import logger from './lib/logger'
 import morgan from './config/morgan'
 import ProfileRouter from './routes/profile.route'
 import EsRouter from './routes/es.route'
+import LogsRouter from './routes/logs.route'
 
 dotenv.config()
 
@@ -41,7 +42,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan)
 
-app.use('/api', ProfileRouter, EsRouter)
+app.use('/api', ProfileRouter, EsRouter, LogsRouter)
 app.get('/', (req: Request, res: Response) => {
   res.send('Digimon API')
 })
