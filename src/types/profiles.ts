@@ -8,38 +8,16 @@ export interface Profile {
   technique: [{ name: string; description: string | null }]
   artwork: string
   profile: string
+  timestamps: {
+    createdAt: string
+    updatedAt: string
+    deletedAt: string
+  }
 }
 
 export interface ProfileSchema extends Profile {
   _id: { $oid: string }
   __v: number
-  // timestamp: {
-  //   created_at: string
-  //   updated_at: string | null
-  //   deleted_at: string | null
-  // }
-}
-
-export interface Response {
-  success: boolean
-}
-
-export interface GetProfileResponse extends Response {
-  data: Profile
-}
-
-export interface CreateDocumentResponse extends Response {
-  data: {
-    $oid: string
-  }
-}
-
-export interface ModifiedDocumentResponse extends Response {
-  data: {
-    matchedCount: number
-    modifiedCount: number
-    upsertedId?: number | null
-  }
 }
 
 type Level =
