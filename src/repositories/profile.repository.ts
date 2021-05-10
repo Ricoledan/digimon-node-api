@@ -1,7 +1,6 @@
 import profileModel from '../models/profile.model'
 import logger from '../lib/logger'
 import type { Request } from 'express'
-// import type { Profile } from '../types/types'
 
 class ProfileRepository {
   async read(req: Request) {
@@ -9,11 +8,16 @@ class ProfileRepository {
 
     try {
       if (getName) {
-        const profileByName = await profileModel.find({ name: getName })
+        const profileByName = await profileModel.find({
+          name: getName,
+          'timestamps.deletedAt': { $eq: null }
+        })
 
         return profileByName
       }
-      const allProfiles = await profileModel.find()
+      const allProfiles = await profileModel.find({
+        'timestamps.deletedAt': { $eq: null }
+      })
 
       return allProfiles
     } catch (e) {
@@ -33,7 +37,12 @@ class ProfileRepository {
       group: getRequestBody.group ?? null,
       technique: getRequestBody.technique,
       artwork: getRequestBody.artwork,
-      profile: getRequestBody.profile
+      profile: getRequestBody.profile,
+      timestamps: {
+        createdAt: now(),
+        updatedAt: null,
+        deletedAt: null
+      }
     })
 
     try {
@@ -54,7 +63,7 @@ class ProfileRepository {
         name: getName
       })
 
-      const updatedProfileObj: any = {
+      const updatedProfileObj = {
         level: getRequestBody.level ?? getDocumentFromDB[0].level,
         type: getRequestBody.type ?? getDocumentFromDB[0].type,
         attribute: getRequestBody.attribute ?? getDocumentFromDB[0].attribute,
@@ -62,7 +71,12 @@ class ProfileRepository {
         group: getRequestBody.group ?? getDocumentFromDB[0].group,
         technique: getRequestBody.technique ?? getDocumentFromDB[0].technique,
         artwork: getRequestBody.artwork ?? getDocumentFromDB[0].artwork,
-        profile: getRequestBody.profile ?? getDocumentFromDB[0].profile
+        profile: getRequestBody.profile ?? getDocumentFromDB[0].profile,
+        timestamps: {
+          createdAt: getDocumentFromDB[0].timestamps.createdAt,
+          updatedAt: now(),
+          deletedAt: getDocumentFromDB[0].timestamps.deletedAt
+        }
       }
 
       const updateProfile = await profileModel.updateOne(
@@ -82,15 +96,42 @@ class ProfileRepository {
     const getName = req.params.name
 
     try {
-      const deleteProfile = await profileModel.deleteOne({
+      const getDocumentFromDB: any = await profileModel.find({
         name: getName
       })
 
-      return deleteProfile
+      const profileObj = {
+        level: getDocumentFromDB[0].level,
+        type: getDocumentFromDB[0].type,
+        attribute: getDocumentFromDB[0].attribute,
+        field: getDocumentFromDB[0].field,
+        group: getDocumentFromDB[0].group,
+        technique: getDocumentFromDB[0].technique,
+        artwork: getDocumentFromDB[0].artwork,
+        profile: getDocumentFromDB[0].profile,
+        timestamps: {
+          createdAt: getDocumentFromDB[0].timestamps.createdAt,
+          updatedAt: getDocumentFromDB[0].timestamps.updatedAt,
+          deletedAt: now()
+        }
+      }
+
+      const softDeleteProfile = await profileModel.updateOne(
+        {
+          name: getName
+        },
+        profileObj
+      )
+
+      return softDeleteProfile
     } catch (e) {
       logger.error(e)
     }
   }
+}
+
+function now() {
+  return new Date().toISOString()
 }
 
 export default new ProfileRepository()
