@@ -9,7 +9,7 @@ class ProfileController {
       return res.send(results)
     } catch (e: any) {
       logger.error(e)
-      res.status(500).send({
+      res.status(e.status || 500).send({
         error: 'error occurred reading active profiles'
       })
     }
@@ -22,7 +22,7 @@ class ProfileController {
       return res.status(201).send(results)
     } catch (e: any) {
       logger.error(e)
-      res.status(500).send({
+      res.status(e.status || 500).send({
         error: 'error occurred creating profile'
       })
     }
@@ -35,7 +35,7 @@ class ProfileController {
       return res.status(201).send(results)
     } catch (e: any) {
       logger.error(e)
-      res.status(500).send({
+      res.status(e.status || 500).send({
         error: 'error occurred updating profile'
       })
     }
@@ -48,7 +48,7 @@ class ProfileController {
       return res.status(201).send(results)
     } catch (e: any) {
       logger.error(e)
-      res.status(500).send({
+      res.status(e.status || 500).send({
         error: 'error occurred deleting profile'
       })
     }

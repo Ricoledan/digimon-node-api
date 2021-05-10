@@ -9,7 +9,9 @@ class EsController {
       return res.send('test get')
     } catch (e: any) {
       logger.error(e)
-      res.status(500).send('error occurred while trying to get route')
+      res
+        .status(e.status || 500)
+        .send('error occurred while trying to get route')
     }
   }
   async postTest(req: Request, res: Response) {
@@ -17,7 +19,9 @@ class EsController {
       return res.send('test post')
     } catch (e: any) {
       logger.error(e)
-      res.status(500).send('error occurred while trying to post route')
+      res
+        .status(e.status || 500)
+        .send('error occurred while trying to post route')
     }
   }
 }
