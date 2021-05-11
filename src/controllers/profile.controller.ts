@@ -5,6 +5,7 @@ class ProfileController {
   async getProfiles(req: Request, res: Response) {
     try {
       const results = await ProfileService.getProfiles(req)
+      logger.info(results)
 
       return res.send(results)
     } catch (e: any) {
@@ -18,6 +19,7 @@ class ProfileController {
   async createProfiles(req: Request, res: Response) {
     try {
       const results = await ProfileService.createProfiles(req)
+      logger.info(results)
 
       return res.status(201).send(results)
     } catch (e: any) {
@@ -31,6 +33,7 @@ class ProfileController {
   async updateProfiles(req: Request, res: Response) {
     try {
       const results = await ProfileService.updateProfiles(req)
+      logger.info(results)
 
       return res.status(201).send(results)
     } catch (e: any) {
@@ -44,6 +47,7 @@ class ProfileController {
   async deleteProfiles(req: Request, res: Response) {
     try {
       const results = await ProfileService.deleteProfiles(req)
+      logger.info(results)
 
       return res.status(201).send(results)
     } catch (e: any) {
