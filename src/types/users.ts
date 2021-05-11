@@ -1,4 +1,8 @@
 export interface Users {
+  firstName: string
+  lastName: string
+  userName: string
+  avatar: string // store img in S3, references here as a url
   email: string
   password: string
 }
