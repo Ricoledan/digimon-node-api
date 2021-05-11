@@ -26,10 +26,10 @@ winston.addColors(colors)
 
 const format = winston.format.combine(
   winston.format.timestamp({ format: 'MM-DD-YYYY HH:mm:ss:ms' }),
-  winston.format.colorize({ all: true }),
+  // winston.format.colorize({ all: true }), remove so log lines format correctly
   winston.format.printf(
     (info) =>
-      `[${process.env.NODE_ENV}] ${info.timestamp} ${info.level}: ${info.message}`
+      `[${process.env.NODE_ENV}] (${info.timestamp}) ${info.level}: ${info.message}`
   )
 )
 

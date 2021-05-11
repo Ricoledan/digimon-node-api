@@ -12,7 +12,7 @@ const skip = () => {
 }
 
 const morganMiddleware = morgan(
-  ':method :url :status :res[content-length] - :response-time ms',
+  ':method :url status: :status response time: :response-time ms',
   { stream, skip }
 )
 
