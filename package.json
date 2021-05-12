@@ -6,6 +6,13 @@
   "release": {
     "branches": [
       "main"
+    ],
+    "plugins": [
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git", 
+      "@semantic-release/github"
     ]
   },
   "scripts": {
@@ -17,6 +24,16 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Ricoledan/digimon-api.git"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "keywords": [
     "boilerplate",
@@ -47,6 +64,10 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
     "@types/cors": "^2.8.10",
     "@types/dotenv": "^8.2.0",
     "@types/elasticsearch": "^5.0.37",
@@ -58,7 +79,9 @@
     "@types/multer": "^1.4.5",
     "@types/multer-s3": "^2.7.9",
     "@types/node": "^14.14.35",
+    "husky": "^6.0.0",
     "jest": "^26.6.3",
+    "semantic-release": "^17.4.2",
     "ts-jest": "^26.5.4",
     "ts-node-dev": "^1.1.6",
     "typescript": "^4.2.3"

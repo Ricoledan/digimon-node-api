@@ -1,11 +1,10 @@
-name: Semantic Release
+name: Release
 
 on:
   push:
     branches: [main]
-
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -13,14 +12,15 @@ jobs:
         node-version: [14.x, 15.x, 16.x]
 
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm i
-      - run: npm run test
-      - env:
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        run: npx semantic-release
+      - run: yarn install
+      - run: yarn build
+      - run: yarn test
+      - run: yarn semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
