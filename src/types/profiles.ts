@@ -8,16 +8,16 @@ export interface Profile {
   technique: [{ name: string; description: string | null }]
   artwork: string
   profile: string
-  timestamps: {
-    createdAt: string
-    updatedAt: string
-    deletedAt: string
-  }
 }
 
 export interface ProfileSchema extends Profile {
   _id: { $oid: string }
   __v: number
+  timestamps: {
+    createdAt: string
+    updatedAt: string
+    deletedAt: string
+  }
 }
 
 type Level =
