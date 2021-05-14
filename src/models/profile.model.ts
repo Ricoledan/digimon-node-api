@@ -7,19 +7,48 @@ const techniqueSchema = new mongoose.Schema({
 })
 
 const profileSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  level: { type: String, required: true },
-  type: { type: String, required: true },
-  attribute: { type: String, required: true },
-  field: { type: Array },
-  group: { type: Array },
+  name: {
+    type: String,
+    required: true
+  },
+  level: {
+    type: String,
+    required: true
+  },
+  type: {
+    type: String,
+    required: true
+  },
+  attribute: {
+    type: String,
+    required: true
+  },
+  field: {
+    type: Array
+  },
+  group: {
+    type: Array
+  },
   technique: [techniqueSchema],
-  artwork: { type: String, required: true },
-  profile: { type: String, required: true },
+  artwork: {
+    type: String,
+    required: true
+  },
+  profile: {
+    type: String,
+    required: true
+  },
   timestamps: {
-    createdAt: { type: String },
-    updatedAt: { type: String },
-    deletedAt: { type: String }
+    createdAt: {
+      type: Date,
+      default: Date.now()
+    },
+    updatedAt: {
+      type: String
+    },
+    deletedAt: {
+      type: String
+    }
   }
 })
 
