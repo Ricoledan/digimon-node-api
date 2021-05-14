@@ -27,7 +27,9 @@ const connectionUri =
 mongoose
   .connect(connectionUri, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
   })
   .then(() => {
     logger.info('connected to mongodb')
