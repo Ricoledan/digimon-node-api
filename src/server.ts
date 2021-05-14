@@ -7,6 +7,7 @@ import chalk from 'chalk'
 import logger from './lib/logger'
 import morgan from './config/morgan'
 import ProfileRouter from './routes/profile.route'
+import UserRouter from './routes/user.route'
 import EsRouter from './routes/es.route'
 import LogsRouter from './routes/logs.route'
 
@@ -44,7 +45,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan)
 
-app.use('/api', ProfileRouter, EsRouter, LogsRouter)
+app.use('/api', ProfileRouter, UserRouter, EsRouter, LogsRouter)
 app.get('/', (req: Request, res: Response) => {
   res.send('Digimon API')
 })
