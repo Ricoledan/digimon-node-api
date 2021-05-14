@@ -39,8 +39,6 @@ class ProfileRepository {
       artwork: getRequestBody.artwork,
       profile: getRequestBody.profile,
       timestamps: {
-        createdAt: now(),
-        updatedAt: null,
         deletedAt: null
       }
     })
@@ -111,7 +109,7 @@ class ProfileRepository {
         profile: getDocumentFromDB[0].profile,
         timestamps: {
           createdAt: getDocumentFromDB[0].timestamps.createdAt,
-          updatedAt: getDocumentFromDB[0].timestamps.updatedAt,
+          updatedAt: getDocumentFromDB[0].timestamps?.updatedAt,
           deletedAt: now()
         }
       }
