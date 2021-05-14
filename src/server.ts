@@ -28,8 +28,8 @@ mongoose
   .connect(connectionUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useCreateIndex: true
   })
   .then(() => {
     logger.info('connected to mongodb')
