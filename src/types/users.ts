@@ -2,7 +2,7 @@ export interface Users {
   firstName: string
   lastName: string
   userName: string
-  avatar: string // store img in S3, references here as a url
+  avatar: string | null // store img in S3, references here as a url
   email: string
   password: string
 }
@@ -11,7 +11,7 @@ export interface UserSchema {
   __v: number
   timestamps: {
     createdAt: string
-    updatedAt: string
+    updatedAt?: string
     deletedAt: string
   }
 }

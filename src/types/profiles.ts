@@ -15,7 +15,7 @@ export interface ProfileSchema extends Profile {
   __v: number
   timestamps: {
     createdAt: string
-    updatedAt: string
+    updatedAt?: string
     deletedAt: string
   }
 }
