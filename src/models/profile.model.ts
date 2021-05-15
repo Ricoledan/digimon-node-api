@@ -44,10 +44,11 @@ const profileSchema = new mongoose.Schema({
       default: Date.now()
     },
     updatedAt: {
-      type: String
+      type: Date
     },
     deletedAt: {
-      type: String
+      type: Date,
+      default: null
     }
   }
 })

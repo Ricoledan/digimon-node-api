@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
+import type { UserSchema } from '../types/users'
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
     minlength: 5,
@@ -35,10 +36,21 @@ const UserSchema = new mongoose.Schema({
     maxlength: 255
   },
   timestamps: {
-    createdAt: { type: Date, default: Date.now() },
-    updatedAt: { type: Date },
-    deletedAt: { type: Date }
+    createdAt: {
+      type: Date,
+      default: Date.now()
+    },
+    updatedAt: {
+      type: Date
+    },
+    deletedAt: {
+      type: Date,
+      default: null
+    }
   }
 })
 
-export default mongoose.model<mongoose.Document>('user', UserSchema)
+export default mongoose.model<UserSchema & mongoose.Document>(
+  'user',
+  userSchema
+)
