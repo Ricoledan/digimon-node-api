@@ -1,5 +1,7 @@
 import userModel from '../models/user.model'
+import bcrypt from 'bcrypt'
 import logger from '../lib/logger'
+import { now } from '../helpers/date.time'
 import type { Request } from 'express'
 // import type { UserSchema } from '../types/users'
 
@@ -28,6 +30,8 @@ class UserRepository {
 
   async create(req: Request) {
     const getRequestBody = req.body
+    const plainTextPassword = getRequestBody.password
+    const hashPlainTextPassword = await bcrypt.hash(plainTextPassword, 10)
 
     const user = new userModel({
       firstName: getRequestBody.firstName,
@@ -35,7 +39,7 @@ class UserRepository {
       userName: getRequestBody.userName,
       avatar: getRequestBody.avatar ?? null,
       email: getRequestBody.email,
-      password: getRequestBody.password,
+      password: hashPlainTextPassword,
       timestamps: {
         deletedAt: null
       }
@@ -126,10 +130,6 @@ class UserRepository {
       logger.error(e)
     }
   }
-}
-
-function now() {
-  return new Date().toISOString()
 }
 
 export default new UserRepository()
