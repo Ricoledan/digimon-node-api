@@ -57,6 +57,8 @@ class UserRepository {
   async update(req: Request) {
     const getEmail = req.params.email
     const getRequestBody = req.body
+    const plainTextPassword = getRequestBody.password
+    const hashPlainTextPassword = await bcrypt.hash(plainTextPassword, 10)
 
     try {
       const getDocumentFromDB: any = await userModel.find({
@@ -70,7 +72,7 @@ class UserRepository {
         userName: getRequestBody.userName ?? getDocumentFromDB[0].userName,
         avatar: getRequestBody.avatar ?? getDocumentFromDB[0].avatar,
         email: getRequestBody.email ?? getDocumentFromDB[0].email,
-        password: getRequestBody.password ?? getDocumentFromDB[0].password,
+        password: hashPlainTextPassword ?? getDocumentFromDB[0].password,
         timestamps: {
           createdAt: getDocumentFromDB[0].timestamps.createdAt,
           updatedAt: now(),
@@ -92,7 +94,6 @@ class UserRepository {
   }
   async delete(req: Request) {
     const getEmail = req.params.email
-    console.log(getEmail)
 
     try {
       const getDocumentFromDB: any = await userModel.find({
@@ -114,16 +115,12 @@ class UserRepository {
         }
       }
 
-      console.log(userObj)
-
       const softDeleteProfile = await userModel.updateOne(
         {
           email: getEmail
         },
         userObj
       )
-
-      console.log('soft', softDeleteProfile)
 
       return softDeleteProfile
     } catch (e) {
