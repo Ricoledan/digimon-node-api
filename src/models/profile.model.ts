@@ -9,19 +9,23 @@ const techniqueSchema = new mongoose.Schema({
 const profileSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    maxlength: 255
   },
   level: {
     type: String,
-    required: true
+    required: true,
+    maxlength: 255
   },
   type: {
     type: String,
-    required: true
+    required: true,
+    maxlength: 255
   },
   attribute: {
     type: String,
-    required: true
+    required: true,
+    maxlength: 255
   },
   field: {
     type: Array
@@ -32,7 +36,8 @@ const profileSchema = new mongoose.Schema({
   technique: [techniqueSchema],
   artwork: {
     type: String,
-    required: true
+    required: true,
+    maxlength: 255
   },
   profile: {
     type: String,
