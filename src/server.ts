@@ -1,9 +1,9 @@
 import dotenv from 'dotenv'
 import express, { Request, Response } from 'express'
-import mongoose from 'mongoose'
 import cors from 'cors'
 import helmet from 'helmet'
 import logger from './lib/logger'
+import mongo from './config/mongo.config'
 import morgan from './config/morgan'
 import compression from 'compression'
 import chalk from 'chalk'
@@ -20,24 +20,7 @@ if (!process.env.PORT) {
 
 const app = express()
 
-const connectionUri =
-  process.env.NODE_ENV === 'prod'
-    ? process.env.QA_DB_URL!
-    : process.env.DOCKER_DB_URL!
-
-mongoose
-  .connect(connectionUri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true
-  })
-  .then(() => {
-    logger.info('connected to mongodb')
-  })
-  .catch((e) => {
-    logger.error(e)
-  })
+mongo()
 
 app.use(helmet())
 app.use(cors())
