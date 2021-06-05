@@ -11,6 +11,7 @@ import ProfileRouter from './routes/profile.route'
 import UserRouter from './routes/user.route'
 import EsRouter from './routes/es.route'
 import LogsRouter from './routes/logs.route'
+import HealthCheckRouter from './routes/healthcheck.route'
 
 dotenv.config()
 
@@ -29,7 +30,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(compression())
 app.use(morgan)
 
-app.use('/api', ProfileRouter, UserRouter, EsRouter, LogsRouter)
+app.use('/api', ProfileRouter, UserRouter, EsRouter, LogsRouter, HealthCheckRouter)
 app.get('/', (req: Request, res: Response) => {
   res.send('digimon api')
 })
