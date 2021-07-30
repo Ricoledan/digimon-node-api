@@ -6,6 +6,7 @@ RUN npm install -g ts-node-dev && npm install
 FROM base as dev
 ENV NODE_ENV=dev
 COPY . .
+# remove
 RUN npm install bcrypt
 CMD [ "ts-node-dev", "--respawn", "--pretty", "--transpile-only", "src/server.ts" ]
 
