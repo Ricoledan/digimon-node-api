@@ -1,4 +1,4 @@
-FROM node:current-alpine3.10 as base
+FROM node:latest as base
 WORKDIR /app
 COPY ["package.json", "package-lock.json*", "./"]
 RUN npm install -g ts-node-dev && npm install
@@ -6,6 +6,7 @@ RUN npm install -g ts-node-dev && npm install
 FROM base as dev
 ENV NODE_ENV=dev
 COPY . .
+RUN npm install bcrypt
 CMD [ "ts-node-dev", "--respawn", "--pretty", "--transpile-only", "src/server.ts" ]
 
 FROM base as prod
