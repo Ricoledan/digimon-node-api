@@ -14,13 +14,14 @@ services:
       - '3030:3030'
     volumes:
       - ./:/app
+      - /app/node_modules/bcrypt/
     restart: always
   mongo:
     container_name: mongo-db
     image: mongo
     restart: always
     volumes:
-      - ./mongo-data:/data/db
+      - digimon-service-data:/data/db
     ports:
       - 27017:27017
   mongo-express:
@@ -29,3 +30,5 @@ services:
     restart: always
     ports:
       - 8081:8081
+volumes:
+  digimon-service-data:
