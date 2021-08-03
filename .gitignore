@@ -105,3 +105,6 @@ dist
 
 # personal notes
 .notes
+
+# docker volume
+mongo-data

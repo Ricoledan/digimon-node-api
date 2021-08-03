@@ -10,3 +10,4 @@ docker-compose.dev.yml
 dist
 logs
 node_modules
+mongo-data

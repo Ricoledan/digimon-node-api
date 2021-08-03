@@ -20,7 +20,7 @@ services:
     image: mongo
     restart: always
     volumes:
-      - /Users/ricoledan/mongo-data:/data/db
+      - ./mongo-data:/data/db
     ports:
       - 27017:27017
   mongo-express:
