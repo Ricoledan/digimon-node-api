@@ -1,6 +1,14 @@
 import profileModel from '../models/profile.model'
 import logger from '../lib/logger'
 import type { Request } from 'express'
+import type {
+  Level,
+  Type,
+  Attribute,
+  Field,
+  Group,
+  ProfileSchema
+} from '../types/profiles'
 
 class ProfileRepository {
   async read(req: Request) {
@@ -27,20 +35,20 @@ class ProfileRepository {
 
   async create(req: Request) {
     const getRequestBody = req.body
+    console.log(getRequestBody)
 
+    // TODO: check for uniqueness
+    // add validation to request objects (up a few levels from here)
     const profile = new profileModel({
       name: getRequestBody.name,
-      level: getRequestBody.level,
-      type: getRequestBody.type,
-      attribute: getRequestBody.attribute,
-      field: getRequestBody.field ?? null,
-      group: getRequestBody.group ?? null,
+      level: getRequestBody.level as Level,
+      type: getRequestBody.type as Type,
+      attribute: getRequestBody.attribute as Attribute,
+      field: (getRequestBody.field as Field[]) ?? null,
+      group: (getRequestBody.group as Group[]) ?? null,
       technique: getRequestBody.technique,
       artwork: getRequestBody.artwork,
-      profile: getRequestBody.profile,
-      timestamps: {
-        deletedAt: null
-      }
+      profile: getRequestBody.profile
     })
 
     try {
@@ -62,20 +70,24 @@ class ProfileRepository {
       })
 
       const updatedProfileObj = {
-        level: getRequestBody.level ?? getDocumentFromDB[0].level,
-        type: getRequestBody.type ?? getDocumentFromDB[0].type,
-        attribute: getRequestBody.attribute ?? getDocumentFromDB[0].attribute,
-        field: getRequestBody.field ?? getDocumentFromDB[0].field,
-        group: getRequestBody.group ?? getDocumentFromDB[0].group,
+        level:
+          (getRequestBody.level as Level) ??
+          (getDocumentFromDB[0].level as Level),
+        type:
+          (getRequestBody.type as Type) ?? (getDocumentFromDB[0].type as Type),
+        attribute:
+          (getRequestBody.attribute as Attribute) ??
+          (getDocumentFromDB[0].attribute as Attribute),
+        field:
+          (getRequestBody.field as Field[]) ??
+          (getDocumentFromDB[0].field as Field[]),
+        group:
+          (getRequestBody.group as Group[]) ??
+          (getDocumentFromDB[0].group as Group[]),
         technique: getRequestBody.technique ?? getDocumentFromDB[0].technique,
         artwork: getRequestBody.artwork ?? getDocumentFromDB[0].artwork,
-        profile: getRequestBody.profile ?? getDocumentFromDB[0].profile,
-        timestamps: {
-          createdAt: getDocumentFromDB[0].timestamps.createdAt,
-          updatedAt: now(),
-          deletedAt: getDocumentFromDB[0].timestamps.deletedAt
-        }
-      }
+        profile: getRequestBody.profile ?? getDocumentFromDB[0].profile
+      } as ProfileSchema
 
       const updateProfile = await profileModel.updateOne(
         {
@@ -106,12 +118,7 @@ class ProfileRepository {
         group: getDocumentFromDB[0].group,
         technique: getDocumentFromDB[0].technique,
         artwork: getDocumentFromDB[0].artwork,
-        profile: getDocumentFromDB[0].profile,
-        timestamps: {
-          createdAt: getDocumentFromDB[0].timestamps.createdAt,
-          updatedAt: getDocumentFromDB[0].timestamps?.updatedAt,
-          deletedAt: now()
-        }
+        profile: getDocumentFromDB[0].profile
       }
 
       const softDeleteProfile = await profileModel.updateOne(

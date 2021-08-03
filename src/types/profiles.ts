@@ -20,7 +20,7 @@ export interface ProfileSchema extends Profile {
   }
 }
 
-type Level =
+export type Level =
   | 'Baby I'
   | 'Baby II'
   | 'Child'
@@ -31,7 +31,7 @@ type Level =
   | 'Hybrid'
   | 'Unknown'
 
-type Type =
+export type Type =
   | '9000'
   | 'Aerial Assault'
   | 'Alien'
@@ -188,9 +188,15 @@ type Type =
   | 'Weapon'
   | 'Wicked God'
 
-type Attribute = 'Vaccine' | 'Data' | 'Virus' | 'Free' | 'Variable' | 'Unknown'
+export type Attribute =
+  | 'vaccine'
+  | 'data'
+  | 'virus'
+  | 'free'
+  | 'variable'
+  | 'unknown'
 
-type Field =
+export type Field =
   | 'Nature Spirits'
   | 'Deep Savers'
   | 'Nightmare Soldiers'
@@ -202,7 +208,7 @@ type Field =
   | "Dragon'S Roar"
   | 'Jungle Troopers'
 
-type Group =
+export type Group =
   | 'Artifical Digimon'
   | 'BAN-TYO'
   | 'Big Death-Stars'
