@@ -1,4 +1,4 @@
-FROM node:current-alpine3.10 as base
+FROM node:latest as base
 WORKDIR /app
 COPY ["package.json", "package-lock.json*", "./"]
 RUN npm install -g ts-node-dev && npm install
