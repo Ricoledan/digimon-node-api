@@ -37,8 +37,6 @@ class ProfileRepository {
     const getRequestBody = req.body
     console.log(getRequestBody)
 
-    // TODO: check for uniqueness
-    // add validation to request objects (up a few levels from here)
     const profile = new profileModel({
       name: getRequestBody.name,
       level: getRequestBody.level as Level,
@@ -55,7 +53,7 @@ class ProfileRepository {
       const createProfile = await profile.save()
 
       return createProfile
-    } catch (e) {
+    } catch (e: any) {
       logger.error(e)
     }
   }

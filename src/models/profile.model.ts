@@ -9,6 +9,7 @@ const techniqueSchema = new mongoose.Schema({
 const profileSchema = new mongoose.Schema({
   name: {
     type: String,
+    unique: true,
     required: true,
     maxlength: 255
   },
