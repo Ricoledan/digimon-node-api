@@ -9,6 +9,7 @@ const techniqueSchema = new mongoose.Schema({
 const profileSchema = new mongoose.Schema({
   name: {
     type: String,
+    unique: true,
     required: true,
     maxlength: 255
   },
@@ -28,10 +29,12 @@ const profileSchema = new mongoose.Schema({
     maxlength: 255
   },
   field: {
-    type: Array
+    type: Array,
+    required: true
   },
   group: {
-    type: Array
+    type: Array,
+    required: true
   },
   technique: [techniqueSchema],
   artwork: {
@@ -46,6 +49,7 @@ const profileSchema = new mongoose.Schema({
   timestamps: {
     createdAt: {
       type: Date,
+      required: true,
       default: Date.now()
     },
     updatedAt: {
