@@ -2,7 +2,7 @@
   "name": "digimon-api",
   "version": "0.0.0",
   "description": "👾 node.js powered api for digimon digital monsters.",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "dev": "docker-compose -f docker-compose.dev.yml up",
     "build": "tsc",
