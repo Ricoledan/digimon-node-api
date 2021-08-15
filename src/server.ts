@@ -29,7 +29,7 @@ app.use(morgan)
 
 app.use('/api', ProfileRouter, UserRouter, LogsRouter, HealthCheckRouter)
 app.get('/', (req: Request, res: Response) => {
-  res.send('digimon api service')
+  res.send('[デジタルモンスター]')
 })
 
 export default app
