@@ -1,4 +1,3 @@
-import dotenv from 'dotenv'
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
@@ -9,11 +8,7 @@ import UserRouter from './routes/user.route'
 import LogsRouter from './routes/logs.route'
 import HealthCheckRouter from './routes/healthcheck.route'
 
-dotenv.config()
 
-if (!process.env.PORT) {
-  process.exit(1)
-}
 
 const app = express()
 
