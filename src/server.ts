@@ -2,7 +2,6 @@ import dotenv from 'dotenv'
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
-import mongo from './config/mongo.config'
 import morgan from './config/morgan'
 import compression from 'compression'
 import ProfileRouter from './routes/profile.route'
@@ -17,8 +16,6 @@ if (!process.env.PORT) {
 }
 
 const app = express()
-
-mongo()
 
 app.use(helmet())
 app.use(cors())
