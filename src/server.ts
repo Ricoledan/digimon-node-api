@@ -7,8 +7,7 @@ import ProfileRouter from './routes/profile.route'
 import UserRouter from './routes/user.route'
 import LogsRouter from './routes/logs.route'
 import HealthCheckRouter from './routes/healthcheck.route'
-
-
+import DocumentationRouter from './routes/documentation.route'
 
 const app = express()
 
@@ -19,7 +18,14 @@ app.use(express.urlencoded({ extended: true }))
 app.use(compression())
 app.use(morgan)
 
-app.use('/api', ProfileRouter, UserRouter, LogsRouter, HealthCheckRouter)
+app.use(
+  '/api',
+  ProfileRouter,
+  UserRouter,
+  LogsRouter,
+  HealthCheckRouter,
+  DocumentationRouter
+)
 app.get('/', (req: Request, res: Response) => {
   res.send('[デジタルモンスター]')
 })
