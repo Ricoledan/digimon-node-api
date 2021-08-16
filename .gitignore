@@ -104,7 +104,10 @@ dist
 .tern-port
 
 # personal notes
-.notes
+.notes.md
 
 # docker volume
 mongo-data
+
+# tests
+coverage
