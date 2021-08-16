@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "docker-compose -f docker-compose.dev.yml up",
     "build": "tsc",
-    "test": "jest --detectOpenHandles",
-    "test:watch": "jest --detectOpenHandles --watch",
-    "coverage": "jest --detectOpenHandles --coverage"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
