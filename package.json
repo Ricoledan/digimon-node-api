@@ -1,6 +1,6 @@
 {
   "name": "digimon-api",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "description": "👾 node.js powered api for digimon digital monsters.",
   "main": "index.ts",
   "scripts": {
@@ -8,11 +8,12 @@
     "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ricoledan/digimon-api.git"
+    "url": "https://github.com/Ricoledan/digimon-api.git"
   },
   "keywords": [
     "boilerplate",
@@ -47,6 +48,8 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
     "@types/bcrypt": "^5.0.0",
     "@types/compression": "^1.7.0",
     "@types/cors": "^2.8.10",
@@ -61,7 +64,9 @@
     "@types/multer-s3": "^2.7.9",
     "@types/node": "^14.14.35",
     "@types/supertest": "^2.0.11",
+    "husky": "^7.0.1",
     "jest": "^26.6.3",
+    "semantic-release": "^17.4.4",
     "supertest": "^6.1.5",
     "ts-jest": "^26.5.4",
     "ts-node-dev": "^1.1.6",
