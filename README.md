@@ -38,7 +38,7 @@ Profile - brief description
 
 Run dev environment
 
-`docker-compose up`
+`npm run dev`
 
 ## Resources
 
