@@ -25,7 +25,7 @@ const components = {
             type: 'string',
             description:
               'Refers to the type of computer file a Digimon represents. There are six different possible attributes',
-            example: 'Vaccine'
+            example: 'vaccine'
           },
           field: {
             type: 'array',
