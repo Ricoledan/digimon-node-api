@@ -43,6 +43,33 @@ const components = {
             },
             description: "A Digimon's Group is a specific theme it belongs to.",
             example: 'Warrior Ten'
+          },
+          technique: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                name: {
+                  type: 'string',
+                  description: 'Name of the technique',
+                  example: 'Baby Flame'
+                },
+                description: {
+                  type: 'string',
+                  description: 'Brief description of the technique',
+                  example:
+                    'Spits a fiery breath from its mouth to attack the opponent.'
+                }
+              }
+            }
+          },
+          artwork: {
+            type: 'string',
+            description: 'Representational image for a digimon'
+          },
+          profile: {
+            type: 'string',
+            description: 'Short biographical information about the Digimon'
           }
         }
       }
