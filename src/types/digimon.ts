@@ -5,12 +5,10 @@ export interface Digimon {
   attribute: Attribute
   field: Field[] | null
   group: Group[] | null
-  // refactor into a reference
   technique: [Technique]
   profile: {
     artwork: string
     sprite: {
-      // collect sprites into an array
       sprite: string[]
       map: string
     }
@@ -19,7 +17,6 @@ export interface Digimon {
 }
 
 export type Technique = {
-  _id: string
   name: string
   description: string | null
 }
@@ -27,6 +24,15 @@ export type Technique = {
 export interface DigimonSchema extends Digimon {
   _id: { $oid: string }
   __v: number
+  timestamps: {
+    createdAt: string
+    updatedAt?: string
+    deletedAt: string
+  }
+}
+
+export interface TechniqueSchema extends Technique {
+  _id: { $oid: string }
   timestamps: {
     createdAt: string
     updatedAt?: string
