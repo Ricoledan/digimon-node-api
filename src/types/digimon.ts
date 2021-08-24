@@ -1,16 +1,26 @@
-export interface Profile {
+export interface Digimon {
   name: string
   level: Level
   type: Type
   attribute: Attribute
   field: Field[] | null
   group: Group[] | null
-  technique: [{ name: string; description: string | null }]
-  artwork: string
-  profile: string
+  // TODO: make into a reference
+  technique: [Technique]
+  profile: {
+    artwork: string
+    sprite: string
+    description: string
+  }
 }
 
-export interface ProfileSchema extends Profile {
+export type Technique = {
+  _id: string
+  name: string
+  description: string | null
+}
+
+export interface DigimonSchema extends Digimon {
   _id: { $oid: string }
   __v: number
   timestamps: {

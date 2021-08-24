@@ -7,8 +7,8 @@ import type {
   Attribute,
   Field,
   Group,
-  ProfileSchema
-} from '../types/profiles'
+  DigimonSchema
+} from '../types/digimon'
 
 class ProfileRepository {
   async read(req: Request) {
@@ -85,7 +85,7 @@ class ProfileRepository {
         technique: getRequestBody.technique ?? getDocumentFromDB[0].technique,
         artwork: getRequestBody.artwork ?? getDocumentFromDB[0].artwork,
         profile: getRequestBody.profile ?? getDocumentFromDB[0].profile
-      } as ProfileSchema
+      } as DigimonSchema
 
       const updateProfile = await profileModel.updateOne(
         {

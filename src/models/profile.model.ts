@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import type { ProfileSchema } from '../types/profiles'
+import type { ProfileSchema } from '../types/digimon'
 
 const techniqueSchema = new mongoose.Schema({
   name: { type: String, required: true },
