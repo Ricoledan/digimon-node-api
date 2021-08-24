@@ -1,12 +1,29 @@
 import mongoose from 'mongoose'
-import type { ProfileSchema } from '../types/profiles'
+const Schema = mongoose.Schema
+import type { DigimonSchema, TechniqueSchema } from '../types/digimon'
 
 const techniqueSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  description: { type: String, required: true }
+  description: { type: String, required: true },
+  timestamps: {
+    createdAt: {
+      type: Date,
+      required: true,
+      default: Date.now()
+    },
+    updatedAt: {
+      type: Date,
+      default: null
+    },
+    deletedAt: {
+      type: Date,
+      default: null
+    }
+  }
 })
 
-const profileSchema = new mongoose.Schema({
+const digimonSchema = new mongoose.Schema({
+  _id: Schema.Types.ObjectId,
   name: {
     type: String,
     unique: true,
@@ -36,7 +53,7 @@ const profileSchema = new mongoose.Schema({
     type: Array,
     required: true
   },
-  technique: [techniqueSchema],
+  technique: [{ type: Schema.Types.ObjectId, ref: 'technique' }],
   artwork: {
     type: String,
     required: true,
@@ -53,7 +70,8 @@ const profileSchema = new mongoose.Schema({
       default: Date.now()
     },
     updatedAt: {
-      type: Date
+      type: Date,
+      default: null
     },
     deletedAt: {
       type: Date,
@@ -62,7 +80,12 @@ const profileSchema = new mongoose.Schema({
   }
 })
 
-export default mongoose.model<ProfileSchema & mongoose.Document>(
-  'profile',
-  profileSchema
+const Digimon = mongoose.model<DigimonSchema & mongoose.Document>(
+  'digimon',
+  digimonSchema
+)
+
+const Technique = mongoose.model<TechniqueSchema & mongoose.Document>(
+  'technique',
+  techniqueSchema
 )
