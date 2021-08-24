@@ -5,11 +5,15 @@ export interface Digimon {
   attribute: Attribute
   field: Field[] | null
   group: Group[] | null
-  // TODO: make into a reference
+  // refactor into a reference
   technique: [Technique]
   profile: {
     artwork: string
-    sprite: string
+    sprite: {
+      // collect sprites into an array
+      sprite: string[]
+      map: string
+    }
     description: string
   }
 }
